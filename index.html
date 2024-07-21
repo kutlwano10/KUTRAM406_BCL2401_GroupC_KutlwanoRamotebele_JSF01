@@ -2,152 +2,228 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>E-commerce Store</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
-      rel="stylesheet"
-    />
-    <script
-      src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js"
-      defer
-    ></script>
+    <title>Vite App</title>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body class="bg-blue-200">
-    <header class="sticky z-40 top-0">
-      <nav x-data="{isOpen : false}" class="bg-gray-500 border-gray-200">
-        <div
-          class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4"
-        >
-          <button class="flex items-center space-x-3 rtl:space-x-reverse">
-            <img class="h-8" src="./assets/online-shop.png" alt="" />
-            <span
-              class="self-center text-2xl font-semibold whitespace-nowrap text-white"
-            >
-              SwiftCart
-            </span>
-          </button>
-          <!-- LEFT SIDE OF NAVBAR -->
-          <!-- Hambuger Menu -->
-          <button
-            @click="isOpen = !isOpen"
-            class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-white rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
-          >
-            <svg
-              class="w-5 h-5"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 17 14"
-            >
-              <path
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M1 1h15M1 7h15M1 13h15"
-              />
-            </svg>
-          </button>
-
+    <div id="app">
+      <header class="sticky z-40 top-0">
+        <nav x-data="{isOpen : false}" class="bg-gray-500 border-gray-200">
           <div
-            :class="{'block': isOpen, 'hidden': !isOpen}"
-            class="md:block w-full md:w-auto"
-            id="navbar-dropdown"
+            class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4"
           >
-            <ul
-              class="flex flex-col top font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-500 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0"
-            >
-              <li
-                class="block py-2 px-3 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0"
+            <button class="flex items-center space-x-3 rtl:space-x-reverse">
+              <img class="h-8" src="./assets/online-shop.png" alt="" />
+              <span
+                class="self-center text-2xl font-semibold whitespace-nowrap text-white"
               >
-                Wishlist
-              </li>
-
-              <li class="hidden lg:block md:block relative">
-                <div class="t-0 absolute left-3 -top-4">
-                  <p
-                    class="flex h-2 w-2 items-center justify-center rounded-full bg-red-500 p-3 text-xs text-white"
-                  >
-                    3
-                  </p>
-                </div>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
+                SwiftCart
+              </span>
+            </button>
+            <!-- LEFT SIDE OF NAVBAR -->
+            <!-- Hambuger Menu -->
+            <button
+              @click="isOpen = !isOpen"
+              class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-white rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
+            >
+              <svg
+                class="w-5 h-5"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 17 14"
+              >
+                <path
                   stroke="currentColor"
-                  class="file: h-6 w-6 stroke-white cursor-pointer"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
-                  />
-                </svg>
-              </li>
-              <li
-                class="lg:hidden md:hidden py-2 px-3 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0"
-              >
-                cart
-              </li>
-              <li
-                class="block py-2 px-3 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0"
-              >
-                Log In
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-    </header>
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M1 1h15M1 7h15M1 13h15"
+                />
+              </svg>
+            </button>
 
-    <!-- MAIN SECTION -->
-    <div
-      x-data="{
-        products: [],
-        fetchProducts: async function () {
-            fetch('https://fakestoreapi.com/products/')
-            .then(response => response.json())
-            .then(data=> this.products = data)
-            .catch(error => console.log('Error fetching Product data:', error))
-        },
-        getdata() {
-            this.fetchProducts();
-        }
-
-    }"
-      x-init="getdata()"
-    >
-      <div class="grid justify-center mx-6">
-        <div
-          class="lg:max-h-[130rem] max-w-xl mx-auto grid gap-4 grid-cols-1 lg:grid-cols-4 md:grid-cols-2 items-center lg:max-w-none my-4 "
-        >
-          <!-- Single Card -->
-          <template x-for="product in products" :key="product.id">
             <div
-              class="flex flex-col max-h-[130rem] cursor-pointer max-w-80 hover:-translate-y-1 hover:scale-105 duration-300 bg-white border border-slate-200 shadow shadow-slate-950/5 rounded-2xl overflow-hidden"
+              :class="{'block': isOpen, 'hidden': !isOpen}"
+              class="md:block w-full md:w-auto"
+              id="navbar-dropdown"
             >
-              <img
-                class="object-contain h-48 mt-3"
-                x-bind:src="product.image"
-                alt=""
-              />
-              <div class="flex-1 flex flex-col p-6">
-                <header class="mb-2 flex-2">
-                  <h2 class="text-lg line-clamp-2 font-extrabold leading-snug">
-                    <div
-                      class="text-slate-600 focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-300"
-                      x-text="product.title"
-                    ></div>
-                  </h2>
-                </header>
+              <ul
+                class="flex flex-col top font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-500 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0"
+              >
+                <li
+                  class="block py-2 px-3 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0"
+                >
+                  Wishlist
+                </li>
+
+                <li class="hidden lg:block md:block relative">
+                  <div class="t-0 absolute left-3 -top-4">
+                    <p
+                      class="flex h-2 w-2 items-center justify-center rounded-full bg-red-500 p-3 text-xs text-white"
+                    >
+                      3
+                    </p>
+                  </div>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="1.5"
+                    stroke="currentColor"
+                    class="file: h-6 w-6 stroke-white cursor-pointer"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
+                    />
+                  </svg>
+                </li>
+                <li
+                  class="lg:hidden md:hidden py-2 px-3 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0"
+                >
+                  cart
+                </li>
+                <li
+                  class="block py-2 px-3 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0"
+                >
+                  Log In
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </header>
+
+      <!-- MAIN SECTION -->
+      <div x-data="prod" x-init="getdata()">
+        <!-- Loading -->
+        <template x-if="isLoading">
+          <div class="">
+            <h1>Loading ...</h1>
+          </div>
+        </template>
+
+        <div class="grid justify-center">
+          <!-- modal -->
+          <div
+            x-show="isOpen"
+            @keyup.escape.window="isOpen = false"
+            class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
+          >
+            <div
+              @click.outside="isOpen = false"
+              class="w-[800px] bg-white rounded-lg p-4"
+            >
+              <div class="flex justify-end">
+                <button
+                  @click="isOpen = false"
+                  class="text-gray-500 hover:text-gray-700"
+                >
+                  &times;
+                </button>
+              </div>
+              <div :key="selectedProduct.id" class="mx-auto w-[90%] space-y-2">
+                <img
+                  :src="selectedProduct.image"
+                  alt=""
+                  class="w-[30%] h-[30%] object-contain"
+                />
+                <h1
+                  class="text-lg font-bold"
+                  x-text="selectedProduct.title"
+                ></h1>
+                <span
+                  :key="selectedProduct.category"
+                  x-text="selectedProduct.category"
+                  class="inline-flex items-center rounded-md bg-gray-50 px-2 py-1 text-sm font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10"
+                ></span>
+                <p x-text="'Price: R' + selectedProduct.price"></p>
+                <h2 class="text-lg font-bold">Description</h2>
+                <p  x-text="selectedProduct.description"></p>
               </div>
             </div>
-          </template>
+          </div>
+          <!-- End of Modal -->
+
+          <div
+            class="lg:max-h-[130rem] max-w-xl mx-auto grid gap-4 grid-cols-1 lg:grid-cols-4 md:grid-cols-2 items-center lg:max-w-none my-4"
+          >
+            <!-- Single Card -->
+            <template x-for="product in products" :key="product.id">
+              <div
+                x-data
+                @click="openModal(product.id)"
+                class="flex flex-col max-h-[130rem] cursor-pointer max-w-80 hover:-translate-y-1 hover:scale-105 duration-300 bg-white border border-slate-200 shadow shadow-slate-950/5 rounded-2xl overflow-hidden"
+              >
+                <img
+                  class="object-contain h-48 mt-3"
+                  x-bind:src="product.image"
+                  alt=""
+                />
+                <div class="flex-1 flex flex-col p-6">
+                  <header class="mb-2 flex-2">
+                    <h2
+                      class="text-lg line-clamp-2 font-extrabold leading-snug"
+                    >
+                      <div
+                        class="text-slate-600 focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-300"
+                        x-text="product.title"
+                      ></div>
+                    </h2>
+                  </header>
+                  <!-- space for ratings -->
+                  <div
+                    class="text-base line-clamp-2 font-extrabold text-slate-500 leading-snug"
+                  >
+                    <h2 x-text="product.price"></h2>
+                  </div>
+                </div>
+                <div class="flex mt-1 space-x-2">
+                  <div class="justify-start flex-1">
+                    <span
+                      class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10"
+                      x-text="product.category"
+                    >
+                    </span>
+                  </div>
+                  <div class="justify-end space-x-2">
+                    <button>
+                      <svg
+                        class="me-1.5 h-5 w-5 hover:fill-red-500"
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        transform="scale(1.6)"
+                      >
+                        <path
+                          stroke="currentColor"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M12.01 6.001C6.5 1 1 8 5.782 13.001L12.011 20l6.23-7C23 8 17.5 1 12.01 6.002Z"
+                        />
+                      </svg>
+                    </button>
+                    <button
+                      class="inline-flex justify-center whitespace-nowrap rounded-lg bg-cyan-700 py-2 text-sm font-medium text-white hover:bg-cyan-900 focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-300 transition-colors"
+                    >
+                      Add To Cart
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </template>
+          </div>
         </div>
       </div>
     </div>
+    <script type="module" src="./src/main.js"></script>
   </body>
 </html>
