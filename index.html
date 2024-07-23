@@ -104,7 +104,39 @@
       >
         <!-- filter -->
         <form>
-          <div class=""></div>
+          <div class="flex lg:w-[31.25rem] sm:w-[95%] md:w-full relative">
+            <!-- categories Here -->
+
+            <!-- Search Here -->
+            <div class="relative w-full">
+              <input
+                type="search"
+                id="search-dropdown"
+                name="searchInput"
+                class="p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg border-s-gray-50 border-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                placeholder="Search products..."
+              />
+              <button
+                class="absolute top-0 end-0 p-2.5 text-sm font-medium h-full text-white bg-blue-700 rounded-e-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300"
+              >
+                <svg
+                  class="w-4 h-4"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
         </form>
 
         <!-- sorting -->
@@ -125,7 +157,6 @@
       <!-- MAIN SECTION -->
       <div x-data="prod" x-init="getdata()">
         <!-- Modal -->
-
         <div
           x-show="isOpen"
           @keyup.escape.window="isOpen = false"
@@ -143,67 +174,89 @@
                 &times;
               </button>
             </div>
-            <div
-              :key="selectedProduct.id"
-              class="mx-auto w-[90%] space-y-2 flex gap-3"
-            >
-              <img
-                :src="selectedProduct.image"
-                alt=""
-                class="w-[50%] h-[50%] object-contain"
-              />
-              <div class="mx-auto space-y-2">
-                <h1
-                  class="text-2xl md:text-4xl lg:text-4xl font-bold"
-                  x-text="selectedProduct.title"
-                ></h1>
-                <!-- ratings -->
-                <div class="flex gap-2">
-                  <svg
-                    class="w-4 h-4 text-yellow-300 ms-1"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="currentColor"
-                    viewBox="0 0 22 20"
-                  >
-                    <path
-                      d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
-                    />
-                  </svg>
-                  <div x-text="selectedProduct.rating.rate"></div>
-                  <div x-text="'Reviews: '+ selectedProduct.rating.count"></div>
+
+            <!-- Loading state -->
+            <div>
+              <template x-if="isLoading">
+                <div class="flex items-center justify-center h-64">
+                  <div
+                    class="animate-spin rounded-full h-16 w-16 border-b-2 border-gray-900"
+                  ></div>
+                  <p class="ml-4">Loading...</p>
                 </div>
-                <span
-                  :key="selectedProduct.category"
-                  x-text="selectedProduct.category"
-                  class="inline-flex items-center rounded-md bg-gray-50 px-2 py-1 text-sm font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10"
-                ></span>
-                <p x-text="'Price: R' + selectedProduct.price"></p>
-                <button
-                  class="bg-cyan-700 hover:bg-cyan-900 w-[90%] md:w-[14rem] lg:w-[14rem] text-white font-bold py-2 px-4 rounded"
-                >
-                  Add To Cart
-                </button>
-                <h2 class="text-lg font-bold">Description</h2>
-                <p x-text="selectedProduct.description"></p>
-              </div>
+              </template>
             </div>
+
+            <template x-if="!isLoading">
+              <div
+                :key="selectedProduct.id"
+                class="mx-auto w-[90%] space-y-2 flex gap-3"
+              >
+                <img
+                  :src="selectedProduct.image"
+                  alt=""
+                  class="w-[50%] h-[50%] object-contain"
+                />
+                <div class="mx-auto space-y-2">
+                  <h1
+                    class="text-2xl md:text-4xl lg:text-4xl font-bold"
+                    x-text="selectedProduct.title"
+                  ></h1>
+                  <!-- ratings -->
+                  <div class="flex gap-2">
+                    <svg
+                      class="w-4 h-4 text-yellow-300 ms-1"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="currentColor"
+                      viewBox="0 0 22 20"
+                    >
+                      <path
+                        d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
+                      />
+                    </svg>
+                    <div x-text="selectedProduct.rating.rate"></div>
+                    <div
+                      x-text="'Reviews: '+ selectedProduct.rating.count"
+                    ></div>
+                  </div>
+                  <span
+                    :key="selectedProduct.category"
+                    x-text="selectedProduct.category"
+                    class="inline-flex items-center rounded-md bg-gray-50 px-2 py-1 text-sm font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10"
+                  ></span>
+                  <p x-text="'Price: R' + selectedProduct.price"></p>
+                  <button
+                    class="bg-cyan-700 hover:bg-cyan-900 w-[90%] md:w-[14rem] lg:w-[14rem] text-white font-bold py-2 px-4 rounded"
+                  >
+                    Add To Cart
+                  </button>
+                  <h2 class="text-lg font-bold">Description</h2>
+                  <p x-text="selectedProduct.description"></p>
+                </div>
+              </div>
+            </template>
           </div>
         </div>
         <!-- End of Modal -->
 
         <!-- Loading State -->
 
-        <div x-data="{skeleton: new Array(20).fill(null)}" class="container mx-auto px-4">
-          <template  x-if="isLoading">
-            <div class="grid justify-center  md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div
+          x-data="{skeleton: new Array(20).fill(null)}"
+          class="container mx-auto px-4"
+        >
+          <template x-if="isLoading">
+            <div
+              class="grid justify-center md:grid-cols-2 lg:grid-cols-4 gap-4"
+            >
               <template x-for="(item, index) in skeleton" :key="index">
                 <div
                   role="status"
-                  class="bg-white  max-w-sm p-4 border  border-gray-200 rounded shadow animate-pulse md:p-6 dark:border-gray-700 "
+                  class="bg-white max-w-sm p-4 border border-gray-200 rounded shadow animate-pulse md:p-6 dark:border-gray-700"
                 >
                   <div
-                    class="flex  items-center justify-center h-48 mb-4 bg-gray-300 rounded dark:bg-gray-700"
+                    class="flex items-center justify-center h-48 mb-4 bg-gray-300 rounded dark:bg-gray-700"
                   >
                     <svg
                       class="w-10 h-10 text-gray-200 dark:text-gray-600"
@@ -236,15 +289,12 @@
           </template>
         </div>
 
-
-
-
+        <!-- End of Loading skeleton -->
 
         <div class="grid justify-center">
-          <div 
+          <div
             class="lg:max-h-[130rem] max-w-xl mx-auto grid gap-4 grid-cols-1 lg:grid-cols-4 md:grid-cols-2 items-center lg:max-w-none my-4"
           >
-            
             <!-- Single Card -->
             <template x-for="product in products" :key="product.id">
               <div
