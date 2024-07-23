@@ -192,19 +192,18 @@
         </div>
         <!-- End of Modal -->
 
-        <div class="grid justify-center">
-          <div x-data="{skeleton: new Array(20).fill(null)}"
-            class="lg:max-h-[130rem] max-w-xl mx-auto grid gap-4 grid-cols-1 lg:grid-cols-4 md:grid-cols-2 items-center lg:max-w-none my-4"
-          >
-            <!-- Loading -->
-            <template x-data x-if="isLoading">
-              <div class="grid justify-center">
+        <!-- Loading State -->
+
+        <div x-data="{skeleton: new Array(20).fill(null)}" class="container mx-auto px-4">
+          <template  x-if="isLoading">
+            <div class="grid justify-center  md:grid-cols-2 lg:grid-cols-4 gap-4">
+              <template x-for="(item, index) in skeleton" :key="index">
                 <div
                   role="status"
-                  class="bg-white max-w-sm p-4 border border-gray-200 rounded shadow animate-pulse md:p-6 dark:border-gray-700"
+                  class="bg-white  max-w-sm p-4 border  border-gray-200 rounded shadow animate-pulse md:p-6 dark:border-gray-700 "
                 >
                   <div
-                    class="flex items-center justify-center h-48 mb-4 bg-gray-300 rounded dark:bg-gray-700"
+                    class="flex  items-center justify-center h-48 mb-4 bg-gray-300 rounded dark:bg-gray-700"
                   >
                     <svg
                       class="w-10 h-10 text-gray-200 dark:text-gray-600"
@@ -230,12 +229,22 @@
                   <div
                     class="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-10 mb-4"
                   ></div>
-
                   <span class="sr-only">Loading...</span>
                 </div>
-              </div>
-            </template>
+              </template>
+            </div>
+          </template>
+        </div>
 
+
+
+
+
+        <div class="grid justify-center">
+          <div 
+            class="lg:max-h-[130rem] max-w-xl mx-auto grid gap-4 grid-cols-1 lg:grid-cols-4 md:grid-cols-2 items-center lg:max-w-none my-4"
+          >
+            
             <!-- Single Card -->
             <template x-for="product in products" :key="product.id">
               <div
